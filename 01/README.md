@@ -1,4 +1,4 @@
-﻿<div align="center"><h1>Asignment 1</h1></div>
+﻿<div align="center"><h1>Assignment 1</h1></div>
 
 
 Create the following tables using the schema given below and insert given data set accordingly.

@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS client_master (
-    Client_no VERCHAR2(6),
-    Name VERCHAR2(30),
-    Address1 VERCHAR2(30),
-    Address2 VERCHAR2(30),
-    City VERCHAR2(15),
-    State VERCHAR2(15),
-    Pincode INT(6),
+CREATE TABLE IF NOT EXISTS myschema.client_master (
+    Client_no VARCHAR(6),
+    Name VARCHAR(30),
+    Address1 VARCHAR(30),
+    Address2 VARCHAR(30),
+    City VARCHAR(15),
+    State VARCHAR(15),
+    Pincode INT,
     Balance_due DECIMAL(10,2)
 );

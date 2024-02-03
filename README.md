@@ -1,9 +1,11 @@
 <div align="center"><h1>Database Management System</h1></div>
 
+<div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
+
 
 ## Windows 🎬
 
-### Prerequisite
+### Special Requisite
 <details>
     <summary>1. A Very Nice Terminal 🤞</summary>
     <p>Nearest Example: <a href="https://apps.microsoft.com/detail/9N0DX20HK701" target="_blank">Windows Terminal</a></p>
@@ -16,7 +18,7 @@
 
 <details>
     <summary>2. PowerShell Core 🐱‍👤</summary>
-    <p><a href="https://apps.microsoft.com/detail/9MZ1SNWT0N5D" target="_blank">pwsh</a></p>
+    <p>PowerShell Core: <a href="https://apps.microsoft.com/detail/9MZ1SNWT0N5D" target="_blank">pwsh</a></p>
     <pre><code>
     if (-not (Get-Command pwsh.exe -ErrorAction SilentlyContinue)) {
         winget install --id Microsoft.Powershell --source winget --silent
@@ -61,57 +63,39 @@
 
 ### Usage
 
+`./run.ps1` or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
+
+
+
 ```pwsh
 ./run.ps1
 ```
 
-or
+<div align="center"><img src="./doc/win/mysql-default.gif" width="100%" height="100%"></div>
+
 
 ```pwsh
-pwsh run.ps1
+./run.ps1 -config
 ```
 
-#### Initial Configuration
 
-<div align="center"><b>MySQL</b></div>
-
+<div align="center"><img src="./doc/win/mysql-manual.gif" width="100%" height="100%"></div>
 
 
-<div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
-
-
-<!-- <div align="center"><b>PostgreSQL/<b></div> -->
-
-
-
-
-#### Manual Configuration
-
-
-<div align="center"><b>MySQL</b></div>
-
-<div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
-
-
-
-<!-- <div align="center"><b>PostgreSQL</b></div> -->
-
-
-#### Debuging
-
+Direct interact with SQL Shell after executing code
 
 ```pwsh
-./run.ps1 -debug
+./run.ps1 -it
 ```
 
 
 
 
+<!-- <div align="center"><h4>PostgreSQL</h4></div> -->
 
 
 
-
-## Linux 🎥
+## Unix 🎥
 
 Comming Soon
 

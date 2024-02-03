@@ -1,5 +1,5 @@
 
-$QueryArray = @("SQL Software", "Username", "Password", "Database Name", "Server Type", "Server Port Number")
+$QueryArray = @("SQL Software", "Username", "Password", "Database Name", "Server Instance", "Server Port Number")
 
 
 
@@ -20,7 +20,7 @@ $jsonFilePath = Join-Path -Path $PSScriptRoot -ChildPath '.\user.json'
 $jsonFileBackupPath = Join-Path -Path $PSScriptRoot -ChildPath '.\user-backup.json'
 
 $flag = $true
-if (-not(Test-Path $jsonFilePath -PathType Leaf)) {
+if (-not(Test-Path $jsonFilePath -PathType Leaf) -and $args[0] -ne '-nolog') {
     $jsonData = [ordered]@{}
     $Result = $(jayneo $QueryArray)
 
@@ -73,34 +73,45 @@ if ($args[0] -eq '-config' -and $flag -eq $true) {
         return
     }
 
-} elseif ($args[0] -ne $null -and $args[0] -ne "-debug") {
+} elseif ($args[0] -ne $null -and $args[0] -ne "-nolog" -and $args[0] -ne "-it") {
     $errMsg = "Invalied arrgument is passed 😑"
     Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg`n" -f Red
     return
 }
 
-try {
-    $jsonContent = Get-Content -Path $jsonFilePath -Raw
-    $jsonObject = $jsonContent | ConvertFrom-Json
 
-    $lastKey = $jsonObject.PSObject.Properties | Select-Object -Last 1 | ForEach-Object { $_.Name }
+if ($args[0] -eq "-nolog") {
+    $Result = $(jayneo $QueryArray) 
+    $SQL = $Result[0]
+    $Username = $Result[1]
+    $Password = $Result[2]
+    $DatabaseName = $Result[3]
+    $ServerInstance = $Result[4]
+    $PORT = $Result[5]
+} else {
+    try {
+        $jsonContent = Get-Content -Path $jsonFilePath -Raw
+        $jsonObject = $jsonContent | ConvertFrom-Json
 
-    $jsonObject = $jsonObject."$($lastKey)"
-    $SQL = $($jsonObject."SQL Software")
-    $Username = $($jsonObject.Username)
-    $Password = $($jsonObject.Password)
-    $DatabaseName = $($jsonObject."Database Name")
-    $ServerType = $($jsonObject."Server Type")
-    $PORT = $($jsonObject."Server Port Number")
+        $lastKey = $jsonObject.PSObject.Properties | Select-Object -Last 1 | ForEach-Object { $_.Name }
 
-} catch {
-    if ((Test-Path $jsonFilePath)) {
-        Remove-Item -Path $jsonFilePath -Force
+        $jsonObject = $jsonObject."$($lastKey)"
+        $SQL = $($jsonObject."SQL Software")
+        $Username = $($jsonObject.Username)
+        $Password = $($jsonObject.Password)
+        $DatabaseName = $($jsonObject."Database Name")
+        $ServerInstance = $($jsonObject."Server Instance")
+        $PORT = $($jsonObject."Server Port Number")
+
+    } catch {
+        if ((Test-Path $jsonFilePath)) {
+            Remove-Item -Path $jsonFilePath -Force
+        }
+        $errMsg = "Something is wrong happening with you 👀"
+        Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg" -ForegroundColor Red
+        Write-Host "$(relativePosition $($errMsg.Length))Please run the previous command again 🤏`n" -ForegroundColor Yellow
+        return
     }
-    $errMsg = "Something is wrong happening with you 👀"
-    Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg" -ForegroundColor Red
-    Write-Host "$(relativePosition $($errMsg.Length))Please run the previous command again 🤏`n" -ForegroundColor Yellow
-    return
 }
 
 
@@ -114,21 +125,20 @@ if (($DatabaseName -eq '') -or ($Username -eq '') -or ($Password -eq '') -or ($S
     return
 }
 
-if ($ServerType -eq '') {
-    $ServerType = "localhost"
+if ($ServerInstance -eq '') {
+    $ServerInstance = "localhost"
 }
 
 
 $sqlFilesFolder = $(jayneo @("Directory Path"))
 
-
-if ($sqlFilesFolder -eq '') {
+if ($sqlFilesFolder -eq '' -and $args[0] -ne "-it") {
     $errMsg = "Directory path cannot be null 😒"
     Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg`n" -f Red
     return
 }
 
-$outputFile = "./hello.csv"
+$outputFile = "./hello.txt"
 
 
 
@@ -154,7 +164,7 @@ if ($SQL -eq "mysql") {
         }
         
     }
-    $portInUse = Test-NetConnection -ComputerName $ServerType -Port $PORT
+    $portInUse = Test-NetConnection -ComputerName $ServerInstance -Port $PORT
     if (-not $portInUse.TcpTestSucceeded) {
         Write-Host "`n`tMySQL server is not running on port $PORT.`n" -ForegroundColor Red
         Write-Host "`tRun Windows PowerShell as Administrator:" -n -ForegroundColor Blue
@@ -166,28 +176,30 @@ if ($SQL -eq "mysql") {
     }
     # cls
     $console = $Host.UI.RawUI
-    Set-Content -Path './user.cnf' -Value "[client]`nhost=$ServerType`nuser=$Username`npassword=$Password`nport=$PORT`n"
+    $sensitiveFile = "./user.cnf"
+    Set-Content -Path $sensitiveFile -Value "[client]`nhost=$ServerInstance`nuser=$Username`npassword=$Password`nport=$PORT`n"
+
+
     Write-Host
     foreach ($file in Get-ChildItem -Path $sqlFilesFolder -Recurse  -Filter *.sql | Sort-Object ) {
         $SQL_COMMANDS = @"
         source $($file.FullName)
 "@
-        Add-Content -Path $OutputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
 
         $n =  [math]::Floor($($console.BufferSize.Width - $((Get-Item $file).Name.Length) - 2) / 2)
-        Add-Content -Path $OutputFile -Value "$(multiplexerChar $n '█') $((Get-Item $file).Name) $(multiplexerChar $n '█')"
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $n '█') $((Get-Item $file).Name) $(multiplexerChar $n '█')"
 
-        Add-Content -Path $OutputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
-        & mysql --defaults-extra-file=./user.cnf  -e $SQL_COMMANDS -D $DatabaseName >> $outputFile
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+        & mysql --defaults-extra-file=./user.cnf  -e $SQL_COMMANDS -D $DatabaseName >> $OutputFile
     }
 
     if(-not($?)) {
-        $FinalResultMsg1 = "SQL command not running successfully 🎻"
-        $FinalResultMsg2 = "Are you sure the provided information is correct 🙉"
+        $FinalResult = $true
     }
 
-    Add-Content -Path $OutputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
-    Remove-Item -Path './user.cnf' -Force
+    Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+
 } 
 
 
@@ -195,7 +207,7 @@ if ($SQL -eq "mysql") {
 
 elseif ($SQL -eq "psql") {
     if ($PORT -eq '') {
-        $PORT = 3306
+        $PORT = 5432
     } else {
         try {
             $PORT = [int]$PORT
@@ -205,7 +217,7 @@ elseif ($SQL -eq "psql") {
             return
         }
     }
-    $portInUse = Test-NetConnection -ComputerName $ServerType -Port $PORT | Out-Null
+    $portInUse = Test-NetConnection -ComputerName $ServerInstance -Port $PORT
     if (-not($portInUse.TcpTestSucceeded)) {
         Write-Host "`n`tPostressSQL server is not running on port $PORT.`n" -ForegroundColor Red
         Write-Host "`tRun Windows PowerShell as Administrator:" -n -ForegroundColor Blue
@@ -215,13 +227,36 @@ elseif ($SQL -eq "psql") {
         Write-Host "`t[Here, x64 is the architecture and 16 is the version of PostgreSQL. It may be different in your machine]`n" -ForegroundColor Cyan
         return
     }
-    cls
-    foreach ($file in Get-ChildItem -Path $sqlFilesFolder -Filter *.sql) {
-        & psql -U $Username -d $DatabaseName -a -f $($file.FullName)
+    $console = $Host.UI.RawUI
+    $sensitiveFile = "$env:APPDATA\postgresql\pgpass.conf"
+    if (-not(Test-Path "$env:APPDATA\postgresql\" -PathType container)) {
+        New-Item -Path "$env:APPDATA\postgresql\" -ItemType Directory -ErrorAction Stop | Out-Null
     }
+    Set-Content -Path $sensitiveFile -Value "$ServerInstance`:$PORT`:$DatabaseName`:$Username`:$Password"
+
+
+
+    Write-Host
+    foreach ($file in Get-ChildItem -Path $sqlFilesFolder -Recurse  -Filter *.sql | Sort-Object ) {
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+
+        $n =  [math]::Floor($($console.BufferSize.Width - $((Get-Item $file).Name.Length) - 2) / 2)
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $n '█') $((Get-Item $file).Name) $(multiplexerChar $n '█')"
+
+        Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+        &  psql -d $DatabaseName -U $Username -f $($file.FullName) >> $outputFile
+    }
+
+
+    if(-not($?)) {
+        $FinalResult = $true
+    }
+
+    Add-Content -Path $outputFile -Value "$(multiplexerChar $console.BufferSize.Width '█')"
+    
 }
 
-############################################################## Other Appqnd #################################################################
+############################################################## Future Append #################################################################
 
 
 
@@ -259,15 +294,13 @@ elseif ($SQL -eq "psql") {
 
 #################################################################################
 
-if ($args[0] -eq '-debug') {
-    if ((Test-Path $outputFile)) {
-    Remove-Item -Path $outputFile -Force
-    }
-    return
+
+if (($args[0] -ne '-it') -and (Test-Path $sensitiveFile)) {
+    Remove-Item -Path $sensitiveFile -Force
 }
 
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
-# cls
 
 if ((Test-Path $outputFile)) {
     Get-Content -Path $outputFile | ForEach-Object {
@@ -280,7 +313,23 @@ if ((Test-Path $outputFile)) {
     Remove-Item -Path $outputFile -Force
 }
 
-Write-Host "`n`t$(relativePosition $($FinalResultMsg1.Length))$FinalResultMsg1" -f Red
-Write-Host "`t$(relativePosition $($FinalResultMsg2.Length))$FinalResultMsg2`n" -f Yellow
+if ($FinalResult -eq $true) {
+    $FinalResultMsg1 = "SQL command not running successfully 🎻"
+    $FinalResultMsg2 = "Are you sure the provided information or your code is correct 🙉"
+    Write-Host "`n`t$(relativePosition $($FinalResultMsg1.Length))$FinalResultMsg1" -f Red
+    Write-Host "`t$(relativePosition $($FinalResultMsg2.Length))$FinalResultMsg2`n" -f Yellow
+}
+
+############################################## For Interactive ##########################################################
+
+
+if ($args[0] -eq '-it') {
+    Start-Process psql -ArgumentList "-d jay_neo -U neo"
+    Start-Sleep 3
+    if ((Test-Path $sensitiveFile)) {
+        Remove-Item -Path $sensitiveFile -Force
+    }
+}
+
 
 # code by jay-neo
