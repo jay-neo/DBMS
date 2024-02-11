@@ -1,5 +1,5 @@
 <div align="center"><h1>Database Management System</h1></div>
-
+<div align="center">MySQL | PostgreSQL</div>
 <div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
 
 
@@ -33,8 +33,8 @@
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
         winget install -e --id Git.Git  --source winget --silent
     }
-    git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git
-    cd nerd-fonts
+    git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git $env:TEMP\NerdFront
+    cd $env:TEMP\NerdFront
     ./install.ps1 Hack
     </code></pre>
 </details>
@@ -63,13 +63,21 @@
 
 ### Usage
 
-`./run.ps1` or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
-
-
+Clone the github repo in your local machine
+```pwsh
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    winget install -e --id Git.Git  --source winget --silent
+}
+git clone https://github.com/jay-neo/DBMS.git
+cd DBMS
+```
 
 ```pwsh
 ./run.ps1
 ```
+
+or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
+
 
 <div align="center"><img src="./doc/win/mysql-default.gif" width="100%" height="100%"></div>
 
@@ -88,6 +96,12 @@ Direct interact with SQL Shell after executing code
 ./run.ps1 -it
 ```
 
+For debugging your code
+
+```pwsh
+./run.ps1 -it
+```
+
 
 
 
@@ -101,11 +115,6 @@ Comming Soon
 
 ### Usage
 
-```sh
-./run.sh
-```
-or
 
-```sh
-sh run.sh
-```
+`./run.sh` or `sh run.sh`
+

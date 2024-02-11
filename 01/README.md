@@ -71,7 +71,7 @@ Create the following tables using the schema given below and insert given data s
 
 ---
 
-<div align="center"><h3>Table Name: salesmaster_master</h3></div>
+<div align="center"><h3>Table Name: salesman_master</h3></div>
 
 **Description- Used to store salesman working for company**
 
@@ -128,7 +128,7 @@ Create the following tables using the schema given below and insert given data s
 ---
 
 
-<div align="center"><h3>Table Name: order_details</h3></div>
+<div align="center"><h3>Table Name: sales_order_details</h3></div>
 
 
 
