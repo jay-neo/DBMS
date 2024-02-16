@@ -5,5 +5,3 @@ INSERT INTO client_master VALUES
 ('C004', 'BasuNavindgi', 'A/12', 'Nariman', 'Bombay', 'Maharastra', 400056, 0),
 ('C005', 'Ravi Sreedharan', 'B/34', 'Rajnagar', 'Delhi', 'Delhi', 100001, 2000),
 ('C006', 'Rukmini', 'Q-12', 'Bandra', 'Bombay', 'Maharastra', 400050, 0);
-
-SELECT * FROM client_master;
