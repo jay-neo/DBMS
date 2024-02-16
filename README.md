@@ -109,12 +109,12 @@ For debugging your code
 
 
 
-## Unix 🎥
+<!-- ## Unix 🎥
 
 Comming Soon
 
 ### Usage
 
 
-`./run.sh` or `sh run.sh`
+`./run.sh` or `sh run.sh` -->
 

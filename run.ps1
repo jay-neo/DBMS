@@ -31,24 +31,14 @@ function WhatPort {
 ############################################################### No Edit Zone #############################################################################
 
 cls
-$neoPath = "./neoLibrary.txt"
+$neoPath = "./neoLibrary.psm1"
 if (-not(Test-Path $neoPath)) {
     Write-Host "`n`t'" -n -f Red
     Write-Host "$neoPath" -n -f Yellow
     Write-Host "' file not found! 😲`n" -f Red
     return
 }
-try {
-    $neoArray = Invoke-Expression $([System.Text.Encoding]::UTF8.GetString($([System.IO.File]::ReadAllBytes("$neoPath`:neo"))))
-    $neoBytes = [System.Security.Cryptography.ProtectedData]::Unprotect([System.IO.File]::ReadAllBytes($neoPath), $neoArray, 'LocalMachine')
-    # $neoBytes = [System.Security.Cryptography.ProtectedData]::Unprotect([System.IO.File]::ReadAllBytes($neoPath), [System.Text.Encoding]::UTF8.GetBytes("helloneo"), 'LocalMachine')
-    Invoke-Expression -Command $([System.Text.Encoding]::UTF8.GetString($neoBytes))
-} catch {
-    Write-Host "`n`t'" -n -f Red
-    Write-Host "$neoPath" -n -f Yellow
-    Write-Host "' file is tempered 😲`n" -f Red
-    return
-}
+Import-Module $neoPath
 $date = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 
 $nolog = $false
