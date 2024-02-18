@@ -48,7 +48,6 @@ for ($i = 0; $i -lt $($args.Count); $i += 1) {
         "-nolog" { $nolog = $true }
         "-config" { $isConfig = $true }
         "-it" { $isIt = $true }
-        "-debug" { $isDebug = $true }
         default {
             $errMsg = "Invalied arrgument is passed 😑"
             Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg`n" -f Red
@@ -59,7 +58,7 @@ for ($i = 0; $i -lt $($args.Count); $i += 1) {
 
 $jsonFilePath = Join-Path -Path $PSScriptRoot -ChildPath '.\user.json'
 $jsonFileBackupPath = Join-Path -Path $PSScriptRoot -ChildPath '.\user-backup.json'
-
+$viewFlag = $false
 
 if (-not(Test-Path $jsonFilePath -PathType Leaf) -and $nolog -eq $false) {
 
@@ -266,7 +265,7 @@ if ($SQL -like "*MySQL*") {
         Add-Content -Path $outputFile -Value "$(multiplexChar $n '█') $((Get-Item $file).Name) $(multiplexChar $n '█')"
 
         Add-Content -Path $outputFile -Value "$(multiplexChar $console.BufferSize.Width '█')"
-        & mysql --defaults-extra-file=./user.cnf  -e $SQL_COMMANDS -D $DatabaseName >> $OutputFile
+        & mysql --defaults-extra-file=./user.cnf  -e $SQL_COMMANDS -D $DatabaseName >> $OutputFile 2>&1
     }
 
     if(-not($?)) {
@@ -294,7 +293,7 @@ elseif ($SQL -like "*PostgreSQL*") {
         Add-Content -Path $outputFile -Value "$(multiplexChar $n '█') $((Get-Item $file).Name) $(multiplexChar $n '█')"
 
         Add-Content -Path $outputFile -Value "$(multiplexChar $console.BufferSize.Width '█')"
-        &  psql -d $DatabaseName -U $Username -f $($file.FullName) >> $outputFile
+        & psql -d $DatabaseName -U $Username -f $($file.FullName) >> $outputFile 2>&1
     }
 
     if(-not($?)) {
@@ -342,23 +341,6 @@ elseif ($SQL -like "*PostgreSQL*") {
 if (($isIt -eq $false) -and (Test-Path $sensitiveFile)) {
     Remove-Item -Path $sensitiveFile -Force
 }
-
-$debugTime = 3
-if ($isDebug -eq $true) {
-    $debugTime = 20
-}
-
-for ($i = 0; $i -lt $debugTime; $i++){
-    if ($host.UI.RawUI.KeyAvailable) {
-        $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyUp,IncludeKeyDown")
-        if ($key.KeyDown -eq "True"){
-            break    
-            }           
-        } 
-    Start-Sleep -Seconds 1
-}
-
-
 
 if ((Test-Path $outputFile)) {
     Get-Content -Path $outputFile | ForEach-Object {
