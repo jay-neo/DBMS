@@ -39,15 +39,17 @@ if (-not(Test-Path $neoPath)) {
     return
 }
 Import-Module $neoPath
-$date = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+$date = (Get-Date -Format 'yyyy-MM-dd_HH-mm-ss')
 
 $nolog = $false
 $isIt = $false
+$saveLog = $false
 for ($i = 0; $i -lt $($args.Count); $i += 1) {
     switch ($args[$i]) {
-        "-nolog" { $nolog = $true }
+        "-private" { $nolog = $true }
         "-config" { $isConfig = $true }
         "-it" { $isIt = $true }
+        "-log" {$saveLog = $true}
         default {
             $errMsg = "Invalied arrgument is passed 😑"
             Write-Host "`n$(relativePosition $($errMsg.Length))$errMsg`n" -f Red
@@ -225,7 +227,7 @@ if ($sqlFilesFolder -eq '' -and $isIt -eq $false) {
     return
 }
 
-$outputFile = "./hello.txt"
+$outputFile = "Log_$date.txt"
 
 
 
@@ -350,7 +352,9 @@ if ((Test-Path $outputFile)) {
             Write-Host "`t$_" -ForegroundColor Yellow
         }
     }
-    Remove-Item -Path $outputFile -Force
+    if ($saveLog -eq $false) {
+        Remove-Item -Path $outputFile -Force
+    }    
 }
 
 if ($FinalResult -eq $true) {
