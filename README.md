@@ -75,9 +75,15 @@ cd DBMS
 ```
 
 or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
-<div align='center'>
-<video controls width="100%" src="./doc/psql.mp4" title="Title"></video>
-</div>
+
+
+
+https://github.com/jay-neo/DBMS/assets/118971315/c210dac4-8a41-4d4a-b43d-5ae61e437697
+
+
+
+<div align="center"><video controls width="100%" src="./doc/psql.mp4" title="Title"></video></div>
+
 
 ```pwsh
 ./run.ps1 -config
