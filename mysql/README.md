@@ -34,7 +34,7 @@ CREATE USER <username>@<server_name> IDENTIFIED BY "<password>";
 ```
 example: `CREATE USER jay@localhost IDENTIFIED BY "neoPassword";`
 
-Sow grants for a user
+Show grants for a user
 ```sql
 SHOW GRANTS FOR <username>@<server_name>;
 ```

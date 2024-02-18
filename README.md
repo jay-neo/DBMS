@@ -3,12 +3,10 @@
 <div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
 
 
-## Windows 🎬
-
-### Special Requisite
+### Prerequisite
 <details>
     <summary>1. A Very Nice Terminal 🤞</summary>
-    <p>Nearest Example: <a href="https://apps.microsoft.com/detail/9N0DX20HK701" target="_blank">Windows Terminal</a></p>
+    <p>Nearest example for windows user: <a href="https://apps.microsoft.com/detail/9N0DX20HK701" target="_blank">Windows Terminal</a></p>
     <pre><code>
     if (-not (Get-Command wt.exe -ErrorAction SilentlyContinue)) {
         winget install -e --id Microsoft.WindowsTerminal --source winget --silent
@@ -40,7 +38,7 @@
 </details>
 
 <details>
-    <summary>4. A Hot Database 🤗</summary>
+    <summary>4. A SQL Database 🤗</summary>
     <details>
         <summary>Choice 1. <a href="https://dev.mysql.com/downloads/installer/" target="_blank">MySQL</a></summary>
         <pre><code>
@@ -77,17 +75,15 @@ cd DBMS
 ```
 
 or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
-
-
-<div align="center"><img src="./doc/win/mysql-default.gif" width="100%" height="100%"></div>
-
+<div align='center'>
+<video controls width="100%" src="./doc/psql.mp4" title="Title"></video>
+</div>
 
 ```pwsh
 ./run.ps1 -config
 ```
 
 
-<div align="center"><img src="./doc/win/mysql-manual.gif" width="100%" height="100%"></div>
 
 
 Direct interact with SQL Shell after executing code
@@ -104,17 +100,4 @@ For debugging your code
 
 
 
-
-<!-- <div align="center"><h4>PostgreSQL</h4></div> -->
-
-
-
-<!-- ## Unix 🎥
-
-Comming Soon
-
-### Usage
-
-
-`./run.sh` or `sh run.sh` -->
 
