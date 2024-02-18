@@ -1,6 +1,6 @@
 <div align="center"><h1>Database Management System</h1></div>
 <div align="center">MySQL | PostgreSQL</div>
-<div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div>
+<!-- <div align="center"><img src="./doc/hello.gif" width="100%" height="100%"></div> -->
 
 
 ### Prerequisite
@@ -70,6 +70,8 @@ git clone https://github.com/jay-neo/DBMS.git
 cd DBMS
 ```
 
+then run 
+
 ```pwsh
 ./run.ps1
 ```
@@ -80,9 +82,6 @@ or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
 
 https://github.com/jay-neo/DBMS/assets/118971315/c210dac4-8a41-4d4a-b43d-5ae61e437697
 
-
-
-<div align="center"><video controls width="100%" src="./doc/psql.mp4" title="Title"></video></div>
 
 
 ```pwsh
