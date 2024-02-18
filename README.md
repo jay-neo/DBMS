@@ -83,13 +83,16 @@ or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
 https://github.com/jay-neo/DBMS/assets/118971315/c210dac4-8a41-4d4a-b43d-5ae61e437697
 
 
+To run code with different user account with saving info
 
 ```pwsh
 ./run.ps1 -config
 ```
 
-
-
+To run code with different user account without saving info
+```pwsh
+./run.ps1 -private
+```
 
 Direct interact with SQL Shell after executing code
 
@@ -97,10 +100,10 @@ Direct interact with SQL Shell after executing code
 ./run.ps1 -it
 ```
 
-For debugging your code
+To save the output log file
 
 ```pwsh
-./run.ps1 -it
+./run.ps1 -log
 ```
 
 
