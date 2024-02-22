@@ -1,1 +1,1 @@
-SELECT Order_date + INTERVAL '15 days' AS date_after_15_days FROM sales_order;
+SELECT DATE_ADD(Order_date, INTERVAL 15 DAY) AS date_after_15_days FROM sales_order;

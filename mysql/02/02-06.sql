@@ -1,1 +1,1 @@
-SELECT * FROM sales_order WHERE TO_CHAR  (Order_date, 'MON') LIKE 'JAN';
+SELECT * FROM sales_order WHERE DATE_FORMAT(Order_date, '%b') LIKE 'Jan';
