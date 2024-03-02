@@ -20,8 +20,7 @@
 17. Calculates the average of the maximum salaries of all the departments from emp table.
 18. Display the standard deviation (sd) of salary for each job type having sd >0 from emp table. 
 19. Count no. of employees whose commission is greater than 300.
-20. Display sum of commission for each department after substituting 100 in commission if it is NULL and order the result in
-descending order of department.
+20. Display sum of commission for each department after substituting 100 in commission if it is NULL and order the result in descending order of department.
 21. Display no. of manager present in employee table.
 22. List of employee names and commissions, substituting "Not Applicable" if the employee receives no commission for those whose name has contained a “M” and order this result as descending order of name.
 23. List names, salary and commission of employees whose name has contained a “M” when the income of some employees is made up of salary plus commission, or just salary, depending on whether the comm column of employees is null or not and order the result as ascending order of name.
