@@ -11,6 +11,7 @@
     if (-not (Get-Command wt.exe -ErrorAction SilentlyContinue)) {
         winget install -e --id Microsoft.WindowsTerminal --source winget --silent
     }
+
     </code></pre>
 </details>
 
@@ -22,6 +23,7 @@
         winget install --id Microsoft.Powershell --source winget --silent
     }
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
     </code></pre>
 </details>
 
@@ -34,6 +36,7 @@
     git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git $env:TEMP\NerdFront
     cd $env:TEMP\NerdFront
     ./install.ps1 Hack
+
     </code></pre>
 </details>
 
@@ -45,6 +48,7 @@
         if (-not (Get-Command mysql -ErrorAction SilentlyContinue)) {
             winget install -e --id Oracle.MySQL --silent
         }
+
         </code></pre>
     </details>
     <details>
@@ -68,12 +72,14 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 }
 git clone https://github.com/jay-neo/DBMS.git
 cd DBMS
+
 ```
 
 then run 
 
 ```pwsh
 ./run.ps1
+
 ```
 
 or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
@@ -87,23 +93,27 @@ To run code with different user account with saving info
 
 ```pwsh
 ./run.ps1 -config
+
 ```
 
 To run code with different user account without saving info
 ```pwsh
 ./run.ps1 -private
+
 ```
 
 Direct interact with SQL Shell after executing code
 
 ```pwsh
 ./run.ps1 -it
+
 ```
 
 To save the output log file
 
 ```pwsh
 ./run.ps1 -log
+
 ```
 
 
