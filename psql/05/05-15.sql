@@ -1,0 +1,4 @@
+SELECT e.*
+FROM Emp e
+JOIN Emp m ON e.MGR = m.EMPNO
+WHERE e.HIREDATE < m.HIREDATE;

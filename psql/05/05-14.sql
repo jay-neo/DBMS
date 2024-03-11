@@ -1,0 +1,7 @@
+SELECT *
+FROM Emp
+WHERE SAL > (
+    SELECT AVG(SAL)
+    FROM Emp
+    WHERE HIREDATE < TO_DATE('01-APR-81', 'DD-MON-YY')
+);

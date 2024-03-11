@@ -1,0 +1,3 @@
+SELECT *
+FROM Emp
+WHERE MGR = 7698;
