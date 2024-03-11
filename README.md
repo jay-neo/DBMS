@@ -63,17 +63,16 @@
 
 Clone the github repo in your local machine
 ```pwsh
-if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-    winget install -e --id Git.Git  --source winget --silent
-}
 git clone https://github.com/jay-neo/DBMS.git
 cd DBMS
+
 ```
 
 then run 
 
 ```pwsh
 ./run.ps1
+
 ```
 
 or `pwsh run.ps1` or `& (Join-Path (Get-Location) "run.ps1")`
@@ -87,23 +86,27 @@ To run code with different user account with saving info
 
 ```pwsh
 ./run.ps1 -config
+
 ```
 
 To run code with different user account without saving info
 ```pwsh
 ./run.ps1 -private
+
 ```
 
 Direct interact with SQL Shell after executing code
 
 ```pwsh
 ./run.ps1 -it
+
 ```
 
 To save the output log file
 
 ```pwsh
 ./run.ps1 -log
+
 ```
 
 

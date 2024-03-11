@@ -1,0 +1,7 @@
+SELECT e.ENAME AS "Employee Name", m.ENAME AS "Manager Name"
+FROM Emp e
+LEFT JOIN Emp m ON e.MGR = m.EMPNO
+UNION
+SELECT e2.ENAME AS "Employee Name", NULL AS "Manager Name"
+FROM Emp e2
+WHERE e2.EMPNO NOT IN (SELECT MGR FROM Emp WHERE MGR IS NOT NULL);

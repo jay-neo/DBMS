@@ -1,0 +1,3 @@
+SELECT e.EMPNO, e.ENAME, d.DNAME, d.LOC
+FROM Emp e
+JOIN Dept d ON e.DEPTNO = d.DEPTNO;

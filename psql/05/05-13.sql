@@ -1,0 +1,7 @@
+SELECT *
+FROM Emp
+WHERE DEPTNO = (
+    SELECT DEPTNO
+    FROM Emp
+    WHERE ENAME = 'MILLER'
+);

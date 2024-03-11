@@ -1,0 +1,9 @@
+SELECT *
+FROM Emp e
+JOIN Dept d ON e.DEPTNO = d.DEPTNO
+WHERE d.LOC = 'DALLAS' AND e.SAL > ALL (
+    SELECT SAL
+    FROM Emp e2
+    JOIN Dept d2 ON e2.DEPTNO = d2.DEPTNO
+    WHERE d2.LOC = 'CHICAGO'
+);
