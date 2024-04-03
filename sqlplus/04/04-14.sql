@@ -1,4 +1,4 @@
-SELECT deptno, AVG(sal) AS avg_salary
+SELECT job
 FROM emp
-GROUP BY deptno
-HAVING COUNT(*) > 5;
+GROUP BY job
+HAVING MAX(sal) >= 5000;
