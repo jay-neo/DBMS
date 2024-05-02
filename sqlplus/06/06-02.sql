@@ -1,0 +1,2 @@
+ALTER TABLE dept_new
+MODIFY deptno NUMBER(2) PRIMARY KEY;

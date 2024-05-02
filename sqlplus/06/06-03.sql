@@ -1,0 +1,2 @@
+ALTER TABLE emp_new
+ADD GRADE CHAR(1);

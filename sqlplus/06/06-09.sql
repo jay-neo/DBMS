@@ -1,0 +1,2 @@
+ALTER TABLE emp_new
+DROP CONSTRAINT emp_noPri;
