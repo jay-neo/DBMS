@@ -1,2 +1,2 @@
 ALTER TABLE emp_new
-DROP UNUSED COLUMNS;
+RENAME COLUMN comm TO commission;

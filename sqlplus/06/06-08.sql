@@ -1,2 +1,2 @@
 ALTER TABLE emp_new
-MODIFY ename VARCHAR (35);
+MODIFY ename VARCHAR(35);
