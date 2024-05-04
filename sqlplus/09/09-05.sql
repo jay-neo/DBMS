@@ -1,25 +1,24 @@
-SET
-    SURVEROUTPUT ON
-DECLARE user_error
-EXCEPTION;
+SET SERVEROUTPUT ON
 
-PRAGMA EXECPTION_INIT (user_error, -0150);
+DECLARE
+    user_error EXCEPTION;
+    PRAGMA EXCEPTION_INIT(user_error, -01400); -- Code for "value too large for column"
 
 BEGIN
-insert into
-    emp
-values
+    INSERT INTO emp
+    VALUES
     (
         NULL,
         'Jay',
-        'REARCH',
+        'RESEARCH',
         7900,
-        '12-MAY-2002',
+        DATE '2002-05-12',
         90000,
         1200,
         200
     );
-
-EXECPTION WHEN user_error THEN DBMS_OUTPUT.PUT_LINE ('CANNOT INSERT NULL VALUES');
-
+EXCEPTION
+    WHEN user_error THEN
+        DBMS_OUTPUT.PUT_LINE('CANNOT INSERT NULL VALUES');
 END;
+/
