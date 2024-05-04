@@ -5,5 +5,6 @@ CREATE TABLE Client_Master (
     Address2 VARCHAR2(20),
     City VARCHAR2(15),
     State VARCHAR2(15),
-    Pincode VARCHAR2(8) Bal_due NUMBER(8, 3)
+    Pincode VARCHAR2(8),
+    Bal_due NUMBER(8, 3)
 );

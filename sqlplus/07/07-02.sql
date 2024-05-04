@@ -5,7 +5,8 @@ SELECT
     MAX(e.sal) AS maxsal,
     AVG(e.sal) AS avgsal
 FROM
-    dept d
-    JOIN emp e ON d.deptno = e.deoptno
+    emp e
+JOIN
+    dept d ON e.deptno = d.deptno
 GROUP BY
     d.dname;
