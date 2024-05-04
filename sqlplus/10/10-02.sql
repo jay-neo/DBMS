@@ -1,37 +1,36 @@
-create
-or replace function review_emp (emp_no number) return number is incr emp.sal % type;
+CREATE OR REPLACE FUNCTION review_emp (emp_no NUMBER) RETURN NUMBER IS
+    incr emp.sal%TYPE;
+    net emp.sal%TYPE;
 
-net emp.sal % type;
+    v_empno emp.empno%TYPE;
+    v_sal emp.sal%TYPE;
+    v_comm emp.comm%TYPE;
+BEGIN
+    SELECT empno, sal, NVL(comm, 0)
+    INTO v_empno, v_sal, v_comm
+    FROM emp
+    WHERE empno = emp_no;
 
-vempno emp.empno % type;
+    net := v_sal + v_comm;
 
-vsal emp.sal % type;
+    IF v_sal <= 15000 THEN
+        incr := net * 0.2;
+    ELSIF v_sal > 15000 AND v_sal <= 30000 THEN
+        incr := net * 0.3;
+    ELSE
+        incr := net * 0.4;
+    END IF;
 
-vcomm emp.comm % type;
+    RETURN incr;
+END review_emp;
+/
 
-begin
-select
-    empno,
-    sal,
-    nvl(comm, 0) into vempno,
-    vsal,
-    vcomm
-from
-    emp
-where
-    empno = emp_no;
-
-net := vsal + vcomm;
-
-if vsal <= 1500 then incr := net * 0.2;
-
-elsif vsal > 1500
-and vsal <= 3000 then incr := net * 0.3;
-
-else incr := net * 0.4;
-
-end if;
-
-return (incr);
-
-end review_emp;
+-- Example usage:
+DECLARE
+    empno_param NUMBER := 7698;
+    increased_salary NUMBER;
+BEGIN
+    increased_salary := review_emp(empno_param);
+    DBMS_OUTPUT.PUT_LINE('Increased salary for employee ' || empno_param || ' is ' || increased_salary);
+END;
+/
