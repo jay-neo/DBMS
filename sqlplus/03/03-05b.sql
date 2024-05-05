@@ -1,13 +1,18 @@
 CREATE TABLE Dept (
-  deptno NUMBER(2,0) NOT NULL,
+  deptno NUMBER(2, 0) NOT NULL,
   dname VARCHAR2(14) NOT NULL,
   loc VARCHAR2(13) NOT NULL
 );
 
-INSERT INTO Dept (deptno, dname, loc) VALUES
-(10, 'ACCOUNTING', 'NEW YORK'),
-(20, 'RESEARCH', 'DALLAS'),
-(30, 'SALES', 'CHICAGO'),
-(40, 'OPERATIONS', 'BOSTON');
+INSERT INTO
+  Dept (deptno, dname, loc)
+VALUES
+  (10, 'ACCOUNTING', 'NEW YORK'),
+  (20, 'RESEARCH', 'DALLAS'),
+  (30, 'SALES', 'CHICAGO'),
+  (40, 'OPERATIONS', 'BOSTON');
 
-SELECT * FROM Dept;
+SELECT
+  *
+FROM
+  Dept;
