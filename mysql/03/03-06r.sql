@@ -1,1 +1,4 @@
-SELECT COUNT(DISTINCT JOB) as Total_Post FROM Emp;
+SELECT
+    COUNT(DISTINCT JOB) as Total_Post
+FROM
+    Emp;
