@@ -1,0 +1,2 @@
+-- COMMENT ON TABLE emp IS ' ';
+ALTER TABLE emp COMMENT = '';
