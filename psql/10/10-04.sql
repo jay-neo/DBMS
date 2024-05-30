@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION trg_total_salary()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE dept
+    SET totsal = (SELECT COALESCE(SUM(salary), 0) FROM emp WHERE deptno = NEW.deptno)
+    WHERE deptno = NEW.deptno;
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER TOTAL_SALARY
+AFTER INSERT OR UPDATE OR DELETE ON emp
+FOR EACH ROW
+EXECUTE FUNCTION trg_total_salary();
