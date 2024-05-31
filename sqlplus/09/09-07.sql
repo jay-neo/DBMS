@@ -1,0 +1,20 @@
+SET
+    SURVEROUTPUT ON
+DECLARE OUT_OF_STOCK QTYOH
+BEGIN
+EXCEPTION;
+
+item_master.QOH % type;
+
+SELECT
+    QOH into QTYOH
+from
+    item_master;
+
+IF QTYOH < 1 THEN RAISE OUT_OF_STOCK;
+
+END IF;
+
+EXCEPTION WHEN OUT_OF_STOCK THEN dbms_output.put_line ('INSUFFICIENT STOCK');
+
+END;

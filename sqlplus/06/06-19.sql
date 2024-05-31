@@ -1,0 +1,1 @@
+COMMENT ON TABLE Emp TABLE IS ' ';
