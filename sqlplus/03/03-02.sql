@@ -1,1 +1,4 @@
-SELECT AVG(Sell price) FROM Product_master;
+SELECT
+    AVG(Sell price)
+FROM
+    Product_master;

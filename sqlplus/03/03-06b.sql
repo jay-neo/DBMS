@@ -1,1 +1,5 @@
-SELECT DNAME, LOC FROM Dept;
+SELECT
+    DNAME,
+    LOC
+FROM
+    Dept;

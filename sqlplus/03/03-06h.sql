@@ -1,1 +1,6 @@
-SELECT ENAME FROM Emp WHERE length(ENAME) = 5;
+SELECT
+    ENAME
+FROM
+    Emp
+WHERE
+    LENGTH(ENAME) = 5;
