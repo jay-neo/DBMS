@@ -1,28 +1,11 @@
-create view vi as
-select
-    empno,
-    ename,
-    emp.deptno,
-    job,
-    sal,
-    dname,
-    loc
-from
-    emp,
-    dept
-where
-    emp.deptno = dept.deptno;
+CREATE OR REPLACE TRIGGER ti
+INSTEAD OF DELETE ON vi
+FOR EACH ROW
+BEGIN
+    DELETE FROM emp
+    WHERE empno = :old.empno;
 
------------------------
-create
-or replace trigger ti instead of delete on vi for each row
-begin
-delete from emp
-where
-    deptno = :old.deptno;
-
-delete from dept
-where
-    deptno = :old.deptno;
-
-end;
+    DELETE FROM dept
+    WHERE deptno = :old.deptno;
+END;
+/

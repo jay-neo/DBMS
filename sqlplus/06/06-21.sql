@@ -1,1 +1,1 @@
-TRUNCATE TABLE emp_new1; 
+DROP TABLE emp_new1;

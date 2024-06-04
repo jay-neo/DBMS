@@ -1,16 +1,16 @@
-DECLARE dno number := &deptno;
+SET SERVEROUTPUT ON
 
+DECLARE
+    dno NUMBER := &deptno;
 BEGIN
-update dept
-set
-    loc = 'KOLKATA'
-where
-    deptno = dno;
+    UPDATE dept
+    SET loc = 'KOLKATA'
+    WHERE deptno = dno;
 
-if (SQL % FOUND) then DBMS_OUTPUT.PUT_LINE ('Updated');
-
-else DBMS_OUTPUT.PUT_LINE ('Data NOT Found');
-
-end if;
-
+    IF SQL%FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Updated');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Data NOT Found');
+    END IF;
 END;
+/

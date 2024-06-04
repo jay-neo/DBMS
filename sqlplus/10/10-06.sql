@@ -1,6 +1,3 @@
-SELECT
-    DESCRIPTION
-FROM
-    user_triggers
-WHERE
-    trigger_name LIKE 'TOTAL_SALARY';
+SELECT TRIGGER_BODY
+FROM user_triggers
+WHERE trigger_name = 'TOTAL_SALARY';

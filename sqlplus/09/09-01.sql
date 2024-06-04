@@ -1,20 +1,22 @@
-SET SURVEROUTPUT ON 
+SET SERVEROUTPUT ON
+
 DECLARE 
-    Vempno emp.empno%type; 
-    Vename emp.ename%type; 
-    Vsal emp.sal%type; 
-    Vdeptno emp.deptno%type; 
-    URSOR C1 is SELECT empno,ename,sal,deptno FROM emp 
-    WHERE sal+NVL(comm.,0) > 25000; 
+    v_empno    emp.empno%TYPE; 
+    v_ename    emp.ename%TYPE; 
+    v_sal      emp.sal%TYPE; 
+    v_deptno   emp.deptno%TYPE; 
+
+    CURSOR c1 IS 
+        SELECT empno, ename, sal, deptno 
+        FROM emp 
+        WHERE sal + NVL(comm, 0) > 25000; 
 BEGIN 
-    OPEN C1; 
+    OPEN c1; 
     LOOP 
-        FETCH C1 INTO Vempno,Vname,Vsal, Vdeptno; 
-        IF C1%FOUND THEN 
-            Dbms_output.put_line(Vempno||' '|| Vname||' ' || Vsal ||' ' ||Vdeptno); 
-        ELSE 
-            EXIT; 
-        END IF; 
+        FETCH c1 INTO v_empno, v_ename, v_sal, v_deptno; 
+        EXIT WHEN c1%NOTFOUND; 
+        DBMS_OUTPUT.PUT_LINE(v_empno || ' ' || v_ename || ' ' || v_sal || ' ' || v_deptno); 
     END LOOP; 
-    CLOSE C1;
-END;
+    CLOSE c1; 
+END; 
+/

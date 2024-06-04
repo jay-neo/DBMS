@@ -1,20 +1,23 @@
-SET
-    SURVEROUTPUT ON
-DECLARE OUT_OF_STOCK QTYOH
+SET SERVEROUTPUT ON
+
+DECLARE
+    qtyoh item_master.qoh%TYPE;
+    INSUFFICIENT_STOCK EXCEPTION;
+
 BEGIN
-EXCEPTION;
+    SELECT qoh INTO qtyoh
+    FROM item_master
+    WHERE <condition>; -- Add a condition to select a specific item or items
 
-item_master.QOH % type;
+    IF qtyoh < 1 THEN
+        RAISE INSUFFICIENT_STOCK;
+    END IF;
 
-SELECT
-    QOH into QTYOH
-from
-    item_master;
-
-IF QTYOH < 1 THEN RAISE OUT_OF_STOCK;
-
-END IF;
-
-EXCEPTION WHEN OUT_OF_STOCK THEN dbms_output.put_line ('INSUFFICIENT STOCK');
-
+    DBMS_OUTPUT.PUT_LINE('Quantity on hand is: ' || qtyoh);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No data found for the specified condition.');
+    WHEN INSUFFICIENT_STOCK THEN
+        DBMS_OUTPUT.PUT_LINE('INSUFFICIENT STOCK');
 END;
+/

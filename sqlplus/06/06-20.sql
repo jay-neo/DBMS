@@ -1,1 +1,1 @@
-RENAME Emp to emp_change;
+ALTER TABLE emp RENAME TO emp_change;
