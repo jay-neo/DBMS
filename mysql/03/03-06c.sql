@@ -1,1 +1,6 @@
-SELECT * FROM Dept WHERE (DEPTNO = 20);
+SELECT
+    *
+FROM
+    Dept
+WHERE
+    DEPTNO = 20;

@@ -1,3 +1,9 @@
-SELECT ename
-FROM emp
-WHERE ename = UPPER(SUBSTRING(ename FROM 1 FOR 1)) || LOWER(SUBSTRING(ename FROM 2));
+SELECT
+    ename
+FROM
+    emp
+WHERE
+    ename = CONCAT(
+        UPPER(SUBSTRING(ename, 1, 1)),
+        LOWER(SUBSTRING(ename, 2))
+    );

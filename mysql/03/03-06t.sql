@@ -1,1 +1,4 @@
-SELECT SUM(SAL) FROM Emp;
+SELECT
+    SUM(SAL)
+FROM
+    Emp;

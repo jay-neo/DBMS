@@ -1,3 +1,6 @@
-SELECT COUNT(*) AS num_managers
-FROM emp
-WHERE job = 'MANAGER';
+SELECT
+    COUNT(*) AS num_managers
+FROM
+    emp
+WHERE
+    job = 'MANAGER';

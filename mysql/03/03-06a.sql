@@ -1,1 +1,6 @@
-SELECT DEPTNO, EMPNO, MGR FROM Emp;
+SELECT
+    DEPTNO,
+    EMPNO,
+    MGR
+FROM
+    Emp;

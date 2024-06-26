@@ -1,1 +1,7 @@
-SELECT ENAME, JOB FROM Emp WHERE MGR is NULL;
+SELECT
+    ENAME,
+    JOB
+FROM
+    Emp
+WHERE
+    MGR is NULL;
