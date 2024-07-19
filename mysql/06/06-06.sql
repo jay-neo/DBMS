@@ -1,0 +1,2 @@
+ALTER TABLE emp_new
+ADD CONSTRAINT emp_ck CHECK (SAL >= 700);
