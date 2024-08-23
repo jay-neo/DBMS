@@ -1,0 +1,5 @@
+CREATE TABLE dept_new1 AS TABLE dept WITH DATA;
+ALTER TABLE dept_new1 ADD PRIMARY KEY (deptno);
+
+CREATE TABLE emp_new1 AS TABLE emp WITH DATA;
+ALTER TABLE emp_new1 ADD CONSTRAINT fk_deptno FOREIGN KEY (deptno) REFERENCES dept_new1(deptno);

@@ -1,0 +1,3 @@
+DROP VIEW IF EXISTS vw_client_master CASCADE;
+
+DROP VIEW IF EXISTS Vw_sales_det CASCADE;

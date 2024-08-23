@@ -1,0 +1,5 @@
+-- CREATE TABLE emp_new AS TABLE Emp;
+-- CREATE TABLE dept_new AS TABLE Dept;
+
+CREATE TABLE emp_new AS TABLE emp WITH DATA;
+CREATE TABLE dept_new AS TABLE dept WITH DATA;
